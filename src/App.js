@@ -1,23 +1,29 @@
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
+import FormModal from './formModal';
 
 function App() {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const openModal = () => {
+    setIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsOpen(false);
+  };
+
+  const handleSubmit = ({ username, email, phone, dob }) => {
+    // Handle form submission logic here
+    console.log('Submitted:', { username, email, phone, dob });
+    closeModal(); // Close the modal after submission
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>User Details Modal</h1>
+      <button onClick={openModal}>Open Form</button>
+      {isOpen && <FormModal closeModal={closeModal} handleSubmit={handleSubmit} />}
     </div>
   );
 }
